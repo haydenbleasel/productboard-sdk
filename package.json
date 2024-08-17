@@ -1,6 +1,6 @@
 {
   "name": "productboard-sdk",
-  "version": "1.0.4",
+  "version": "0.0.1-canary.0",
   "description": "A TypeScript implementation of the Productboard SDK.",
   "files": ["dist"],
   "main": "./dist/index.js",
