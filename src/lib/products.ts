@@ -1,3 +1,5 @@
+import ky from 'ky';
+
 export type ProductboardProduct = {
   id: string;
   name: string;
@@ -38,22 +40,15 @@ export const fetchProductboardProducts = async (
   url: string,
   token: string
 ): Promise<ProductboardProduct[]> => {
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'X-Version': '1',
-    },
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  const payload = (await response.json()) as GetProductsResponse;
+  const payload = await ky
+    .get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'X-Version': '1',
+      },
+    })
+    .json<GetProductsResponse>();
 
   if ('errors' in payload) {
     throw new Error(payload.errors[0].detail);

@@ -1,3 +1,5 @@
+import ky from 'ky';
+
 export type ProductboardUser = {
   id: string;
   email: string | null;
@@ -30,22 +32,15 @@ export const fetchProductboardUsers = async (
   url: string,
   token: string
 ): Promise<ProductboardUser[]> => {
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'X-Version': '1',
-    },
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  const payload = (await response.json()) as GetUsersResponse;
+  const payload = await ky
+    .get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'X-Version': '1',
+      },
+    })
+    .json<GetUsersResponse>();
 
   if ('errors' in payload) {
     throw new Error(payload.errors[0].detail);

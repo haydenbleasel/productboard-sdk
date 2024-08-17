@@ -1,3 +1,5 @@
+import ky from 'ky';
+
 export type ProductboardFeatureStatus = {
   id: string;
   name: string;
@@ -29,22 +31,15 @@ export const fetchProductboardFeatureStatuses = async (
   url: string,
   token: string
 ): Promise<ProductboardFeatureStatus[]> => {
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'X-Version': '1',
-    },
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  const payload = (await response.json()) as GetFeatureStatusesResponse;
+  const payload = await ky
+    .get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'X-Version': '1',
+      },
+    })
+    .json<GetFeatureStatusesResponse>();
 
   if ('errors' in payload) {
     throw new Error(payload.errors[0].detail);

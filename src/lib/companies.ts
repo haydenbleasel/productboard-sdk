@@ -1,3 +1,5 @@
+import ky from 'ky';
+
 export type ProductboardCompany = {
   id: string;
   name: string;
@@ -24,22 +26,15 @@ export const fetchProductboardCompanies = async (
   url: string,
   token: string
 ): Promise<ProductboardCompany[]> => {
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'X-Version': '1',
-    },
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  const payload = (await response.json()) as GetCompaniesResponse;
+  const payload = await ky
+    .get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'X-Version': '1',
+      },
+    })
+    .json<GetCompaniesResponse>();
 
   if ('code' in payload) {
     throw new Error(payload.detail);

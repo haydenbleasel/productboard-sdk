@@ -1,3 +1,5 @@
+import ky from 'ky';
+
 export type ProductboardComponent = {
   id: string;
   name: string;
@@ -55,22 +57,15 @@ export const fetchProductboardComponents = async (
   url: string,
   token: string
 ): Promise<ProductboardComponent[]> => {
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'X-Version': '1',
-    },
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  const payload = (await response.json()) as GetComponentsResponse;
+  const payload = await ky
+    .get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'X-Version': '1',
+      },
+    })
+    .json<GetComponentsResponse>();
 
   if ('errors' in payload) {
     throw new Error(payload.errors[0].detail);
