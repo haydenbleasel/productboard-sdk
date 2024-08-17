@@ -1,8 +1,10 @@
 {
   "name": "productboard-sdk",
-  "version": "0.0.1-canary.0",
+  "version": "0.0.1",
   "description": "A TypeScript implementation of the Productboard SDK.",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -20,7 +22,11 @@
     "type": "git",
     "url": "git+https://github.com/haydenbleasel/productboard-sdk.git"
   },
-  "keywords": ["productboard", "sdk", "typescript"],
+  "keywords": [
+    "productboard",
+    "sdk",
+    "typescript"
+  ],
   "author": "Hayden Bleasel <hello@haydenbleasel.com>",
   "license": "ISC",
   "bugs": {
