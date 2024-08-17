@@ -48,17 +48,6 @@ export type ProductboardNote = {
   };
 };
 
-export type GetNotesResponse =
-  | {
-      data: ProductboardNote[];
-      pageCursor: string;
-      totalResults: number;
-    }
-  | {
-      ok: boolean;
-      errors: string[];
-    };
-
 export const fetchProductboardNotes = async (
   url: string,
   token: string
@@ -71,10 +60,22 @@ export const fetchProductboardNotes = async (
         'X-Version': '1',
       },
     })
-    .json<GetNotesResponse>();
+    .json<
+      | {
+          data: ProductboardNote[];
+          pageCursor: string;
+          totalResults: number;
+        }
+      | {
+          ok: boolean;
+          errors: {
+            source: string[];
+          };
+        }
+    >();
 
   if ('errors' in payload) {
-    throw new Error(payload.errors.join(', '));
+    throw new Error(payload.errors.source.join(', '));
   }
 
   if (payload.pageCursor) {
