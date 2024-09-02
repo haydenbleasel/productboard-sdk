@@ -39,7 +39,7 @@
     "dotenv": "^16.4.5",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4",
-    "ultracite": "4.0.5"
+    "ultracite": "4.0.6"
   },
   "dependencies": {
     "ky": "^1.7.0"
