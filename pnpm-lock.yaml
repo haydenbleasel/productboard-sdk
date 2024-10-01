@@ -10,7 +10,7 @@ importers:
     dependencies:
       ky:
         specifier: ^1.7.0
-        version: 1.7.1
+        version: 1.7.2
     devDependencies:
       '@biomejs/biome':
         specifier: 1.8.3
@@ -541,8 +541,8 @@ packages:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
 
-  ky@1.7.1:
-    resolution: {integrity: sha512-KJ/IXXkFhTDqxcN8wKqMXk1/UoOpc0UnOB6H7QcqlPInh/M2B5Mlj+i9exez1w4RSwJhNFmHiUDPriAYFwb5VA==}
+  ky@1.7.2:
+    resolution: {integrity: sha512-OzIvbHKKDpi60TnF9t7UUVAF1B4mcqc02z5PIvrm08Wyb+yOcz63GRvEuVxNT18a9E1SrNouhB4W2NNLeD7Ykg==}
     engines: {node: '>=18'}
 
   lilconfig@3.1.2:
@@ -1199,7 +1199,7 @@ snapshots:
 
   joycon@3.1.1: {}
 
-  ky@1.7.1: {}
+  ky@1.7.2: {}
 
   lilconfig@3.1.2: {}
 
